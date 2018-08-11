@@ -1,1 +1,1 @@
-# SportsStore
+Przykładowa aplikacja sklepu on-line.
