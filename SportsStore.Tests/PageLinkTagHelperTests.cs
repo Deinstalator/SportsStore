@@ -1,45 +1,45 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Moq;
 using SportsStore.Infrastructure;
 using SportsStore.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace SportsStore.Tests
 {
+
     public class PageLinkTagHelperTests
     {
+
         [Fact]
-        public void Can_Genereate_Page_Links()
+        public void Can_Generate_Page_Links()
         {
-            //Przygotownie
+            // Arrange
             var urlHelper = new Mock<IUrlHelper>();
-            urlHelper.SetupSequence(x =>
-                x.Action(It.IsAny<UrlActionContext>()))
+            urlHelper.SetupSequence(x => x.Action(It.IsAny<UrlActionContext>()))
                 .Returns("Test/Page1")
                 .Returns("Test/Page2")
                 .Returns("Test/Page3");
 
             var urlHelperFactory = new Mock<IUrlHelperFactory>();
             urlHelperFactory.Setup(f =>
-                f.GetUrlHelper(It.IsAny<ActionContext>()))
-                    .Returns(urlHelper.Object);
+                    f.GetUrlHelper(It.IsAny<ActionContext>()))
+                        .Returns(urlHelper.Object);
 
-            PageLinkTagHelper helper = new PageLinkTagHelper(urlHelperFactory.Object)
-            {
-                PageModel = new PagingInfo
-                {
-                    CurrentPage = 2,
-                    TotalItems = 28,
-                    ItemsPerPage = 10
-                },
-                PageAction = "Test"
-            };
+            PageLinkTagHelper helper =
+                    new PageLinkTagHelper(urlHelperFactory.Object)
+                    {
+                        PageModel = new PagingInfo
+                        {
+                            CurrentPage = 2,
+                            TotalItems = 28,
+                            ItemsPerPage = 10
+                        },
+                        PageAction = "Test"
+                    };
 
             TagHelperContext ctx = new TagHelperContext(
                 new TagHelperAttributeList(),
@@ -50,14 +50,14 @@ namespace SportsStore.Tests
                 new TagHelperAttributeList(),
                 (cache, encoder) => Task.FromResult(content.Object));
 
-            //Działanie
+            // Act
             helper.Process(ctx, output);
 
-            //asercje
+            // Assert
             Assert.Equal(@"<a href=""Test/Page1"">1</a>"
-                + @"<a href=""Test/Page2"">1</a>"
-                + @"<a href=""Test/Page3"">1</a>",
-                output.Content.GetContent());
+                + @"<a href=""Test/Page2"">2</a>"
+                + @"<a href=""Test/Page3"">3</a>",
+                 output.Content.GetContent());
         }
     }
 }

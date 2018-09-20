@@ -2,7 +2,7 @@
 
     @foreach (var p in Model.Products)
     {
-        @Html.Partial("ProductSummary", p);
+        @await Html.PartialAsync("ProductSummary", p);
     }
     
     <div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
