@@ -10,7 +10,6 @@ using Xunit;
 
 namespace SportsStore.Tests
 {
-
     public class PageLinkTagHelperTests
     {
 

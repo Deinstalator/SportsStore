@@ -7,6 +7,7 @@ using SportsStore.Models.ViewModels;
 
 namespace SportsStore.Infrastructure
 {
+
     [HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
@@ -31,7 +32,7 @@ namespace SportsStore.Infrastructure
         public string PageClassSelected { get; set; }
 
         public override void Process(TagHelperContext context,
-            TagHelperOutput output)
+                TagHelperOutput output)
         {
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
             TagBuilder result = new TagBuilder("div");
@@ -39,11 +40,11 @@ namespace SportsStore.Infrastructure
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action(PageAction,
-                    new { page = i });
+                   new { productPage = i });
                 if (PageClassesEnabled)
                 {
                     tag.AddCssClass(PageClass);
-                    tag.AddCssClass(i == PageModel.CurrentPage 
+                    tag.AddCssClass(i == PageModel.CurrentPage
                         ? PageClassSelected : PageClassNormal);
                 }
                 tag.InnerHtml.Append(i.ToString());
