@@ -18,6 +18,18 @@
         "fonts/fontawesome-webfont.woff2",
         "fonts/FontAwesome.otf"
       ]
+    },
+    {
+      "library": "jquery@3.3.1",
+      "destination": "wwwroot/lib/jquery"
+    },
+    {
+      "library": "jquery-validate@1.18.0",
+      "destination": "wwwroot/lib/jquery-validation"
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive"
     }
   ]
 }
